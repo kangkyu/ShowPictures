@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.example.android.showpictures.utilities.NetworkUtils;
+import com.example.android.showpictures.utilities.PixabayJsonUtils;
 
 import java.net.URL;
 
@@ -28,19 +29,19 @@ public class MainActivity extends AppCompatActivity {
         new FetchPhotos().execute("");
     }
 
-    public class FetchPhotos extends AsyncTask<String, Void, String> {
+    public class FetchPhotos extends AsyncTask<String, Void, String[]> {
 
         @Override
-        protected String doInBackground(String... params) {
+        protected String[] doInBackground(String... params) {
             if (params.length == 0) return null;
             String searchTerm = params[0];
             URL requestPhotosUrl = NetworkUtils.buildUrl(searchTerm);
 
-            String jsonStringPhotoData = requestPhotosUrl.toString();
+            String[] jsonStringPhotoData = {};
             try {
                 String jsonWeatherResponse = NetworkUtils.getResponseFromHttpUrl(requestPhotosUrl);
                 Context context = MainActivity.this;
-                jsonStringPhotoData = jsonWeatherResponse; // TODO: parse JSON
+                jsonStringPhotoData = PixabayJsonUtils.getImageLinkFromJson(jsonWeatherResponse); // TODO: parse JSON
             } catch (Exception e) {
                 e.printStackTrace();
                 return null;
@@ -49,9 +50,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(String photoData) {
+        protected void onPostExecute(String[] photoData) {
             if (photoData != null) {
-                mPhoto.setText(photoData);
+                for (String photo : photoData)
+                mPhoto.append(photo + "\n\n\n");
             }
         }
     }

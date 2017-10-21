@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class NetworkUtils {
 
     private static final String FIXABAY_BASE_URL = "https://pixabay.com/api";
-    private static final String fixabayApiKey = System.getenv("FIXABAY_API_KEY");
+    private static final String fixabayApiKey = System.getenv("FIXABAY_API_KEY"); // TODO: this does NOT work!
 
     public static URL buildUrl(String searchTerm) {
         URL url;
