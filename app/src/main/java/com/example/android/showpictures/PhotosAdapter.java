@@ -6,7 +6,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ImageView;
+
+import com.squareup.picasso.Picasso;
 
 public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.PhotosAdapterViewHolder> {
 
@@ -14,11 +16,11 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.PhotosAdap
 
     class PhotosAdapterViewHolder extends RecyclerView.ViewHolder {
 
-        public final TextView mImageTextView;
+        public final ImageView mImageImageView;
 
         PhotosAdapterViewHolder(View view) {
             super(view);
-            mImageTextView = (TextView) view.findViewById(R.id.tv_image_data);
+            mImageImageView = (ImageView) view.findViewById(R.id.iv_photo_image);
         }
     }
 
@@ -36,7 +38,8 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.PhotosAdap
 
     @Override
     public void onBindViewHolder(PhotosAdapterViewHolder holder, int position) {
-        holder.mImageTextView.setText(mImageData[position]);
+        Context context = holder.mImageImageView.getContext();
+        Picasso.with(context).load(mImageData[position]).into(holder.mImageImageView);
     }
 
     @Override
