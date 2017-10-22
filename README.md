@@ -8,5 +8,5 @@ TODO:
 + pagination
 + search query input field
 + automatic column count
-+ progress bar when loading
++ ~~progress bar when loading~~
 +

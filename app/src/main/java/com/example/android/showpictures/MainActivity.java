@@ -10,6 +10,8 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.example.android.showpictures.utilities.NetworkUtils;
 import com.example.android.showpictures.utilities.PixabayJsonUtils;
@@ -21,12 +23,17 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private PhotosAdapter mPhotosAdapter;
 
+    private ProgressBar mLoadingIndicator;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_photo);
+
+        mLoadingIndicator = (ProgressBar) findViewById(R.id.pb_loading_indicator);
+
         StaggeredGridLayoutManager layoutManager;
 
         if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -51,6 +58,12 @@ public class MainActivity extends AppCompatActivity {
     public class FetchPhotos extends AsyncTask<String, Void, String[]> {
 
         @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mLoadingIndicator.setVisibility(View.VISIBLE);
+        }
+
+        @Override
         protected String[] doInBackground(String... params) {
             if (params.length == 0) return null;
             String searchTerm = params[0];
@@ -70,6 +83,9 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String[] photoData) {
+
+            mLoadingIndicator.setVisibility(View.INVISIBLE);
+
             if (photoData != null) {
                 mPhotosAdapter.setImageData(photoData);
             }
