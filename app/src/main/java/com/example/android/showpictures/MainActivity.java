@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import com.example.android.showpictures.utilities.NetworkUtils;
@@ -13,14 +15,23 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView mPhoto;
+    private RecyclerView mRecyclerView;
+    private PhotosAdapter mPhotosAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mPhoto = (TextView) findViewById(R.id.tv_photo_data);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_photo);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        mPhotosAdapter = new PhotosAdapter();
+
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setAdapter(mPhotosAdapter);
+
         loadPhotoData();
     }
 
@@ -52,8 +63,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String[] photoData) {
             if (photoData != null) {
-                for (String photo : photoData)
-                mPhoto.append(photo + "\n\n\n");
+                mPhotosAdapter.setImageData(photoData);
             }
         }
     }
