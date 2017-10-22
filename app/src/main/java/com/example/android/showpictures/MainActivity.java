@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_photo);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 6);
         mPhotosAdapter = new PhotosAdapter();
 
         mRecyclerView.setLayoutManager(layoutManager);
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 String jsonWeatherResponse = NetworkUtils.getResponseFromHttpUrl(requestPhotosUrl);
                 Context context = MainActivity.this;
-                jsonStringPhotoData = PixabayJsonUtils.getImageLinkFromJson(jsonWeatherResponse); // TODO: parse JSON
+                jsonStringPhotoData = PixabayJsonUtils.getImageLinkFromJson(jsonWeatherResponse);
             } catch (Exception e) {
                 e.printStackTrace();
                 return null;
