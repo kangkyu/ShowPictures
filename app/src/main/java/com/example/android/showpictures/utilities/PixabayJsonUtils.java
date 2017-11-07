@@ -6,7 +6,7 @@ import org.json.JSONObject;
 
 public final class PixabayJsonUtils {
     public static String[] getImageLinkFromJson(String photosJsonStr) throws JSONException {
-        String[] parsedImageData = null;
+        String[] parsedImageData;
 
         JSONObject photosJson = new JSONObject(photosJsonStr);
         JSONArray imageArray = photosJson.getJSONArray("hits");

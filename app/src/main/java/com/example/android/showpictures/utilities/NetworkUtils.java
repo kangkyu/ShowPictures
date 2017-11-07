@@ -14,13 +14,15 @@ public class NetworkUtils {
     private static final String FIXABAY_BASE_URL = "https://pixabay.com/api";
     private static final String fixabayApiKey = System.getenv("FIXABAY_API_KEY"); // TODO: this does NOT work!
 
-    public static URL buildUrl(String searchTerm) {
+    public static URL buildUrl(String pageNumber) {
         URL url;
         Uri builtUri;
 
         builtUri = Uri.parse(FIXABAY_BASE_URL).buildUpon()
                 .appendQueryParameter("key", fixabayApiKey)
-                .appendQueryParameter("editors_choice", "true").build(); // TODO: (2) use searchTerm instead
+                .appendQueryParameter("editors_choice", "true")
+                .appendQueryParameter("page", pageNumber)
+                .build();
 
         url = null;
 
