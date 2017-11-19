@@ -1,11 +1,11 @@
 # ShowPictures
 
-another beginner challenge - fetch fixabay pictures and show them
+another beginner challenge - fetch fixabay pictures and show them. used Picasso, RecyclerView and StaggeredGridLayoutManager.
 
 TODO:
 
 + ~~add a refresh button~~
-+ pagination
++ ~~pagination~~
 + search query input field
 + automatic column count
 + ~~progress bar when loading~~
