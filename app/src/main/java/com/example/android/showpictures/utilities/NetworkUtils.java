@@ -11,15 +11,15 @@ import java.util.Scanner;
 
 public class NetworkUtils {
 
-    private static final String FIXABAY_BASE_URL = "https://pixabay.com/api";
-    private static final String fixabayApiKey = System.getenv("FIXABAY_API_KEY"); // TODO: this does NOT work!
+    private static final String PIXABAY_BASE_URL = "https://pixabay.com/api";
+    private static final String pixabayApiKey = System.getenv("FIXABAY_API_KEY"); // TODO: this does NOT work!
 
     public static URL buildUrl(String pageNumber) {
         URL url;
         Uri builtUri;
 
-        builtUri = Uri.parse(FIXABAY_BASE_URL).buildUpon()
-                .appendQueryParameter("key", fixabayApiKey)
+        builtUri = Uri.parse(PIXABAY_BASE_URL).buildUpon()
+                .appendQueryParameter("key", pixabayApiKey)
                 .appendQueryParameter("editors_choice", "true")
                 .appendQueryParameter("page", pageNumber)
                 .build();
